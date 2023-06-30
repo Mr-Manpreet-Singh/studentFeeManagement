@@ -1,5 +1,6 @@
 import 'package:feemanagement/models/student_model.dart';
 import 'package:feemanagement/providers/class_provider.dart';
+import 'package:feemanagement/providers/fee_logs_provider.dart';
 import 'package:feemanagement/providers/student_provider.dart';
 import 'package:flutter/material.dart';
 // import 'package:feemanagement/dummy_data/dummy_data.dart';
@@ -16,30 +17,59 @@ class AddStudent extends ConsumerStatefulWidget {
 class _AddStudentState extends ConsumerState<AddStudent> {
   String studentName = "";
   String studentClass = "";
-  int fee = -1;
+  int totalFee = -1;
+  int alreadyPaidFee = -1;
 
   final _formKey = GlobalKey<FormState>();
 
   void _onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      ref.read(studentsProvider.notifier).addStudent(
-          Student(name: studentName, fee: fee, studentClass: studentClass));
-      Navigator.of(context).pop();
+
+      if (alreadyPaidFee <= totalFee) {
+        final String studentId = ref.read(studentsProvider.notifier).addStudent(Student(
+            name: studentName,
+            totalFee: totalFee,
+            alreadyFeePaid: alreadyPaidFee,
+            studentClass: studentClass));
+
+        if (alreadyPaidFee>0) {
+  ref.read(feeLogsProvider.notifier).addToLogs(FeeLog(
+      feePaidDate: DateTime.now(),
+      transactionAmount: alreadyPaidFee,
+      studentId: studentId));
+}
+
+        Navigator.of(context).pop();
+      } else {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+                Text("Already paid amount can't be greater than total fee")));
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title:const Text("Add New Student"),),
+        appBar: AppBar(
+          title: const Text("Add New Student"),
+        ),
         body: Container(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Center(
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.grey[300],
+                  ),
+                ),
                 TextFormField(
                   decoration: const InputDecoration(
                       hintText: "Name", prefixIcon: Icon(Icons.person)),
@@ -52,41 +82,45 @@ class _AddStudentState extends ConsumerState<AddStudent> {
                   },
                   onSaved: (newValue) => studentName = newValue!,
                 ),
-                const SizedBox(height: 15),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                            hintText: "Fee",
-                            prefixIcon: Icon(Icons.currency_rupee)),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter the valid input";
-                          }
-                          final inputFee = int.tryParse(value);
-                          if (inputFee == null) return "Enter the valid input";
-                          return null;
-                        },
-                        onSaved: (newValue) => fee = int.parse(newValue!),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: DropdownButtonFormField(
-                        value: widget.currentClass,
-                        onChanged: (_) {},
-                        items: buildDropdownItems(ref),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return " Error";
-                          return null;
-                        },
-                        onSaved: (newValue) => studentClass = newValue!,
-                      ),
-                    ),
-                  ],
+                DropdownButtonFormField(
+                  value: widget.currentClass,
+                  onChanged: (_) {},
+                  items: buildDropdownItems(ref),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return " Error";
+                    return null;
+                  },
+                  onSaved: (newValue) => studentClass = newValue!,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                      hintText: "Total Fee",
+                      prefixIcon: Icon(Icons.currency_rupee)),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter the valid input";
+                    }
+                    final inputFee = int.tryParse(value);
+                    if (inputFee == null) return "Enter the valid input";
+                    return null;
+                  },
+                  onSaved: (newValue) => totalFee = int.parse(newValue!),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                      hintText: "Already Paid Fee",
+                      prefixIcon: Icon(Icons.currency_rupee)),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter the valid input";
+                    }
+                    final inputFee = int.tryParse(value);
+                    if (inputFee == null) return "Enter the valid input";
+                    return null;
+                  },
+                  onSaved: (newValue) => alreadyPaidFee = int.parse(newValue!),
                 ),
                 const SizedBox(height: 25),
                 Row(
