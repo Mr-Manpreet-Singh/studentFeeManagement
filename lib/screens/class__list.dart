@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:feemanagement/dummy_data/dummy_data.dart';
-import 'package:feemanagement/dummy_data/dummy_data.dart';
-import 'package:feemanagement/models/student_model.dart';
 import 'package:feemanagement/providers/class_provider.dart';
 import 'package:feemanagement/screens/student_list.dart';
 

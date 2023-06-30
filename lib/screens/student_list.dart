@@ -1,11 +1,12 @@
-import 'package:feemanagement/dummy_data/dummy_data.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+
 import 'package:feemanagement/models/student_model.dart';
 import 'package:feemanagement/providers/fee_logs_provider.dart';
 import 'package:feemanagement/providers/student_provider.dart';
 import 'package:feemanagement/screens/student_details.dart';
 import 'package:feemanagement/widgets/floating_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StudentList extends ConsumerStatefulWidget {
   const StudentList({super.key, required this.currentClass});
@@ -68,11 +69,20 @@ class _StudentListState extends ConsumerState<StudentList> {
     final studentsList = allStudentsList
         .where((element) => element.studentClass == widget.currentClass)
         .toList();
+    final List<FeeLog> allLogs = ref.watch(feeLogsProvider);
+    List<FeeLog> allSortedLogs = allLogs;
+    allSortedLogs.sort(
+      (a, b) => b.feePaidDate.compareTo(a.feePaidDate),
+    );
+
     return Scaffold(
       appBar: AppBar(title: Text("Batch ${widget.currentClass}")),
       body: ListView.builder(
         itemCount: studentsList.length,
         itemBuilder: (context, index) {
+          final lastLatestLogs = allSortedLogs.firstWhere(
+            (element) => element.studentId == studentsList[index].id,
+          );
           return Card(
             key: ValueKey(studentsList[index].id),
             child: ListTile(
@@ -83,7 +93,11 @@ class _StudentListState extends ConsumerState<StudentList> {
                 // builder: (context) => StudentDetails(), //pass student
               )),
               title: Text(studentsList[index].name),
-              subtitle: const Text("Status : pending/ Paid"),
+              subtitle:  Row(
+                children: [Text("Fee Last Paid:"),
+                  Text(DateFormat("dd-MMM-yy : HH:mm").format(lastLatestLogs.feePaidDate),style: TextStyle(color: ((DateTime.now().difference(lastLatestLogs.feePaidDate) > Duration(days: 30))?Colors.red:Colors.green),),),
+                ],
+              ),
               trailing: IconButton.filled(
                   onPressed: () => onCurrencyIconTap(studentsList[index]),
                   icon: const Icon(Icons.currency_rupee_sharp)),

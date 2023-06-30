@@ -1,6 +1,4 @@
 import 'package:feemanagement/models/student_model.dart';
-import 'package:feemanagement/providers/fee_logs_provider.dart';
-import 'package:feemanagement/providers/student_provider.dart';
 import 'package:feemanagement/widgets/fee_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,74 +17,7 @@ class StudentDetails extends ConsumerWidget {
   final Student currentStudent;
   // const StudentDetails({super.key});
 
-  void _onUndoLogTap(WidgetRef ref, BuildContext context) {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-
-          
-
-    //       return AlertDialog(
-    //         title: const Text("Undo Last Log"),
-    //         actions: [
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.end,
-    //             children: [
-    //               TextButton(
-    //                   onPressed: () {
-    //                     Navigator.of(context).pop();
-    //                   },
-    //                   child: const Text("No")),
-    //               TextButton(
-    //                   onPressed: () {
-    //                     Navigator.of(context).pop();
-    //                     ref.read(feeLogsProvider.notifier).removeFromLogUsingLogID()
-
-    //                   },
-    //                   child: const Text("Yes, Undo Log")),
-    //             ],
-    //           )
-    //         ],
-    //       );
-    //     });
-  }
-
-
-  void _onDeleteTap(WidgetRef ref, BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Delete Student permanently"),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("No")),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                        ref
-                            .read(studentsProvider.notifier)
-                            .removeStudentUsingId(currentStudent.id);
-                        ref
-                            .read(feeLogsProvider.notifier)
-                            .removeAllLogsUsingStudentId(currentStudent.id);
-
-                      },
-                      child: const Text("Yes, Delete")),
-                ],
-              )
-            ],
-          );
-        });
-  }
-
+ 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     debugPrint("${currentStudent.id}   st ID on details screen ");
@@ -168,34 +99,15 @@ class StudentDetails extends ConsumerWidget {
 
             // FeeLogsWidget(studentId: student.id)
             Expanded(child: FeeLogsWidget(studentId: currentStudent.id)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
 
-          ElevatedButton.icon(
-              onPressed: () {
-                _onDeleteTap(ref, context);
-              },
-              label: Text("Undo Log"),
-              icon: Icon(Icons.undo)),
-        
-          ElevatedButton.icon(
-              onPressed: () {
-                _onUndoLogTap(ref, context);// to be done
-              },
-              label: Text("Delete Student"),
-              icon: Icon(Icons.delete)),
-        
-              ],
-            )
             // Text("Registered "),
           ],
         ),
-      ),          
-      
+      ),
     );
   }
 }
+  
 
 // fees log
 // Balance
