@@ -11,6 +11,20 @@ class ClassScreen extends ConsumerStatefulWidget {
 }
 
 class _ClassScreenState extends ConsumerState<ClassScreen> {
+  // late Future<void> _classesFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // _classesFuture =
+    triggerDb();
+    super.initState();
+  }
+
+  void triggerDb() async {
+    await ref.read(studentClassProvider.notifier).getAllClassesFromDb();
+  }
+
   void _onClassTap(BuildContext context, String className) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => StudentList(currentClass: className),
@@ -65,7 +79,7 @@ class _ClassScreenState extends ConsumerState<ClassScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title:const Text("Delete Batch permanently"),
+            title: const Text("Delete Batch permanently"),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

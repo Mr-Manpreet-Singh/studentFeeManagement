@@ -1,10 +1,13 @@
-
+// import 'package:sqflite/sqflite.dart' as sql;
+// import 'package:sqflite/sqlite_api.dart';
+// import 'package:sqflite_common_ffi/sqflite_ffi.dart' as sqflite_ffi;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:feemanagement/screens/class__list.dart';
+// import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 
-void main() {
+void main() async{
   runApp(const ProviderScope(child: MyApp()));
 }
 

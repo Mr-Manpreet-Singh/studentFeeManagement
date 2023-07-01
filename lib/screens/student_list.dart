@@ -17,6 +17,17 @@ class StudentList extends ConsumerStatefulWidget {
 }
 
 class _StudentListState extends ConsumerState<StudentList> {
+  @override
+  void initState()  {
+    // TODO: implement initState
+    triggerDb();
+    super.initState();
+  }
+
+  void triggerDb() async {
+    await ref.read(studentsProvider.notifier).getAllStudentsfromDb();
+  }
+
   void onCurrencyIconTap(Student currentStudent) {
     final feeController = TextEditingController();
     showDialog(
@@ -53,7 +64,7 @@ class _StudentListState extends ConsumerState<StudentList> {
           studentId: student.id));
       ref
           .read(studentsProvider.notifier)
-          .alreadyPaidFeeStatus(student, addPayment);
+          .alreadyPaidFeeUpdate(student.id, addPayment);
 
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context)
@@ -80,9 +91,12 @@ class _StudentListState extends ConsumerState<StudentList> {
       body: ListView.builder(
         itemCount: studentsList.length,
         itemBuilder: (context, index) {
-          final lastLatestLogs = allSortedLogs.firstWhere(
-            (element) => element.studentId == studentsList[index].id,
-          );
+          FeeLog? lastLatestLog = allSortedLogs.firstWhere(
+              (element) => element.studentId == studentsList[index].id,
+              orElse: () => FeeLog(
+                  feePaidDate: DateTime.now(),
+                  transactionAmount: 0,
+                  studentId: "-1"));
           return Card(
             key: ValueKey(studentsList[index].id),
             child: ListTile(
@@ -93,11 +107,24 @@ class _StudentListState extends ConsumerState<StudentList> {
                 // builder: (context) => StudentDetails(), //pass student
               )),
               title: Text(studentsList[index].name),
-              subtitle:  Row(
-                children: [Text("Fee Last Paid:"),
-                  Text(DateFormat("dd-MMM-yy : HH:mm").format(lastLatestLogs.feePaidDate),style: TextStyle(color: ((DateTime.now().difference(lastLatestLogs.feePaidDate) > Duration(days: 30))?Colors.red:Colors.green),),),
-                ],
-              ),
+              subtitle: (lastLatestLog.studentId != "-1")
+                  ? Row(
+                      children: [
+                        const Text("Fee Last Paid:"),
+                        Text(
+                          DateFormat("dd-MMM-yy : HH:mm")
+                              .format(lastLatestLog.feePaidDate),
+                          style: TextStyle(
+                            color: ((DateTime.now()
+                                        .difference(lastLatestLog.feePaidDate) >
+                                    Duration(days: 30))
+                                ? Colors.red
+                                : Colors.green),
+                          ),
+                        ),
+                      ],
+                    )
+                  : null,
               trailing: IconButton.filled(
                   onPressed: () => onCurrencyIconTap(studentsList[index]),
                   icon: const Icon(Icons.currency_rupee_sharp)),

@@ -4,35 +4,39 @@ const uuid = Uuid();
 
 class FeeLog {
   FeeLog(
-      {required this.feePaidDate,
-      required this.transactionAmount,
+      {
+      String? id,
       required this.studentId,
-      String? id}) : logID = id?? uuid.v4();
+        required this.feePaidDate,
+      required this.transactionAmount,
+      }) : logID = id?? uuid.v4();
+  final String logID;
+  final String studentId;
   final DateTime feePaidDate;
   final int transactionAmount;
-  final String studentId;
-  final String logID;
 
   
 }
 
 class Student {
   Student(
-      {required this.name,
+      {
+      String? id,
+      DateTime? registeredDate,
+        required this.name,
+      required this.studentClass,
       required this.totalFee,
       required this.alreadyFeePaid,
-      required this.studentClass,
-      String? id,
-      DateTime? registeredDate})
+      })
       : id = id ?? uuid.v4(),
         registeredDate = registeredDate ?? DateTime.now();
 
+  final String id;
+  final DateTime registeredDate;
   final String name;
   final String studentClass;
   final int totalFee;
   final int alreadyFeePaid;
-  final String id;
-  final DateTime registeredDate;
 
   Student copyWith(
       {String? name,

@@ -16,7 +16,18 @@ class FeeLogsWidget extends ConsumerStatefulWidget {
 }
 
 class _FeeLogsWidgetState extends ConsumerState<FeeLogsWidget> {
-  void _onUndoLogTap(String logID) {
+  @override
+  void initState()  {
+    triggerDb();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void triggerDb() async {
+    await ref.read(feeLogsProvider.notifier).getLogsFromDb();
+  }
+
+  void _onUndoLogTap(FeeLog log) {
     showDialog(
         context: context,
         builder: (context) {
@@ -36,7 +47,12 @@ class _FeeLogsWidgetState extends ConsumerState<FeeLogsWidget> {
                         Navigator.of(context).pop();
                         ref
                             .read(feeLogsProvider.notifier)
-                            .removeFromLogUsingLogID(logID);
+                            .removeFromLogUsingLogID(log.logID);
+
+                        ref
+                            .read(studentsProvider.notifier)
+                            .alreadyPaidFeeUpdate(
+                                widget.studentId, -log.transactionAmount);
                       },
                       child: const Text("Yes, Undo Log")),
                 ],
@@ -127,16 +143,15 @@ class _FeeLogsWidgetState extends ConsumerState<FeeLogsWidget> {
         children: [
           ElevatedButton.icon(
               onPressed: () {
-                _onUndoLogTap(currentStudentLogs[0]
-                    .logID); // to be done
+                _onUndoLogTap(currentStudentLogs[0]); // to be done
               },
-              label:const Text("Undo Log"),
-              icon:const Icon(Icons.undo)),
+              label: const Text("Undo Log"),
+              icon: const Icon(Icons.undo)),
           const SizedBox(width: 5),
           ElevatedButton.icon(
               onPressed: _onDeleteTap,
-              label:const Text("Delete Student"),
-              icon:const Icon(Icons.delete)),
+              label: const Text("Delete Student"),
+              icon: const Icon(Icons.delete)),
         ],
       )
     ]);
