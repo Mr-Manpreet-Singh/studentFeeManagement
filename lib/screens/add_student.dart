@@ -1,4 +1,4 @@
-import 'package:feemanagement/models/student_model.dart';
+import 'package:feemanagement/models/student_feelog_model.dart';
 import 'package:feemanagement/providers/class_provider.dart';
 import 'package:feemanagement/providers/fee_logs_provider.dart';
 import 'package:feemanagement/providers/student_provider.dart';
@@ -52,101 +52,103 @@ class _AddStudentState extends ConsumerState<AddStudent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Add New Student"),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Center(
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.grey[300],
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Add New Student"),
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.grey[300],
+                      ),
                     ),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: "Name", prefixIcon: Icon(Icons.person)),
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Enter Valid input";
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => studentName = newValue!,
-                  ),
-                  DropdownButtonFormField(
-                    value: widget.currentClass,
-                    onChanged: (_) {},
-                    items: buildDropdownItems(ref),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) return " Error";
-                      return null;
-                    },
-                    onSaved: (newValue) => studentClass = newValue!,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: "Total Fee",
-                        prefixIcon: Icon(Icons.currency_rupee)),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Enter the valid input";
-                      }
-                      final inputFee = int.tryParse(value);
-                      if (inputFee == null) return "Enter the valid input";
-                      return null;
-                    },
-                    onSaved: (newValue) => totalFee = int.parse(newValue!),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: "Already Paid Fee",
-                        prefixIcon: Icon(Icons.currency_rupee)),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Enter the valid input";
-                      }
-                      final inputFee = int.tryParse(value);
-                      if (inputFee == null) return "Enter the valid input";
-                      return null;
-                    },
-                    onSaved: (newValue) => alreadyPaidFee = int.parse(newValue!),
-                  ),
-                  const SizedBox(height: 25),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: TextButton(
-                              onPressed: () {
-                                _formKey.currentState!.reset();
-                              },
-                              child: const Text(
-                                "  Reset  ",
-                              ))),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ElevatedButton(
-                              onPressed: _onSubmit, child: const Text("+ Add"))),
-                    ],
-                  )
-                ],
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: "Name", prefixIcon: Icon(Icons.person)),
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter Valid input";
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) => studentName = newValue!,
+                    ),
+                    DropdownButtonFormField(
+                      value: widget.currentClass,
+                      onChanged: (_) {},
+                      items: buildDropdownItems(ref),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return " Error";
+                        return null;
+                      },
+                      onSaved: (newValue) => studentClass = newValue!,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: "Total Fee",
+                          prefixIcon: Icon(Icons.currency_rupee)),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter the valid input";
+                        }
+                        final inputFee = int.tryParse(value);
+                        if (inputFee == null) return "Enter the valid input";
+                        return null;
+                      },
+                      onSaved: (newValue) => totalFee = int.parse(newValue!),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: "Already Paid Fee",
+                          prefixIcon: Icon(Icons.currency_rupee)),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter the valid input";
+                        }
+                        final inputFee = int.tryParse(value);
+                        if (inputFee == null) return "Enter the valid input";
+                        return null;
+                      },
+                      onSaved: (newValue) => alreadyPaidFee = int.parse(newValue!),
+                    ),
+                    const SizedBox(height: 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: TextButton(
+                                onPressed: () {
+                                  _formKey.currentState!.reset();
+                                },
+                                child: const Text(
+                                  "  Reset  ",
+                                ))),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ElevatedButton(
+                                onPressed: _onSubmit, child: const Text("+ Add"))),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }
 

@@ -108,34 +108,36 @@ class _ClassScreenState extends ConsumerState<ClassScreen> {
   Widget build(BuildContext context) {
     final List<String> classesList = ref.watch(studentClassProvider);
     // final List<String> classesList = classesss;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Batches"),
-      ),
-      body: ListView.builder(
-        itemCount: classesList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                _onClassTap(context, classesList[index]);
-              },
-              title: Text(classesList[index]), //error in this line
-              //  subtitle: Text("Status : pending/ Paid"), in student list
-              trailing: IconButton.filled(
-                  onPressed: () {
-                    _onTrailingIconPress(classesList[index]);
-                  },
-                  icon: const Icon(Icons.delete)),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _addClass(context, ref);
-        },
-        child: const Icon(Icons.group_add),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Batches"),
+        ),
+        body: ListView.builder(
+          itemCount: classesList.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                onTap: () {
+                  _onClassTap(context, classesList[index]);
+                },
+                title: Text(classesList[index]), //error in this line
+                //  subtitle: Text("Status : pending/ Paid"), in student list
+                trailing: IconButton.filled(
+                    onPressed: () {
+                      _onTrailingIconPress(classesList[index]);
+                    },
+                    icon: const Icon(Icons.delete)),
+              ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _addClass(context, ref);
+          },
+          child: const Icon(Icons.group_add),
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:feemanagement/models/student_model.dart';
+import 'package:feemanagement/models/student_feelog_model.dart';
 
 List classes = [
   "10-A",

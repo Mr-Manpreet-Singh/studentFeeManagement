@@ -1,4 +1,4 @@
-import 'package:feemanagement/models/student_model.dart';
+import 'package:feemanagement/models/student_feelog_model.dart';
 import 'package:feemanagement/utility/database_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,19 +12,15 @@ class FeeLogsNotifier extends StateNotifier<List<FeeLog>> {
     final allLogs = await DatabaseHelper.getAllLogs();
     state = allLogs;
   }
-
   void addToLogs(FeeLog addLog) {
-    // final List<FeeLog> feeLogs = state;
     state = [...state, addLog];
     debugPrint(
         "Added Log = ${addLog.studentId} ${addLog.transactionAmount} ${addLog.feePaidDate}");
-
     insertLogtoDb(addLog);
   }
 
   void removeFromLogUsingLogID(String removeLogID) {
     state = state.where((element) => element.logID != removeLogID).toList();
-    // debugPrint("Removed Log = $removeLogID");
     deleteLogfromDbUsingLogId(removeLogID);
   }
 

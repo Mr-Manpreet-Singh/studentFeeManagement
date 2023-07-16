@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart' as sql;
-import 'package:feemanagement/models/student_model.dart';
+import 'package:feemanagement/models/student_feelog_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -116,7 +116,7 @@ class DatabaseHelper {
     return allClasses;
   }
 
-// ------------------
+// ------------------ operations on both
 
   static void deleteAllStudentsAndLogByClass(String studentClass) async {
     final db = await _getDataBase();
@@ -142,72 +142,3 @@ final logsCount = await db.delete('feeLOGTable', where: whereClause, whereArgs: 
   }
 }
 
-// WidgetsFlutterBinding.ensureInitialized();
-// databaseFactory = databaseFactoryFfi;
-
-//   Future<Database> initializeDatabase() async {
-//     final String databasesPath = await getDatabasesPath();
-//     final String path = join(databasesPath, 'feeManagementDb.db');
-
-//     // Open/create the database at a given path
-//     return await openDatabase(
-//       path,
-//       version: 1,
-//       onCreate: (Database db, int version) async {
-//         // Create your tables here
-//         await db.execute('CREATE TABLE IF NOT EXISTS StudentTable (id TEXT PRIMARY KEY, registeredDate TEXT, name TEXT, studentClass TEXT, totalFee INTEGER, alreadyFeePaid INTEGER)');
-//         await db.execute('CREATE TABLE IF NOT EXISTS FeeLOGTable (logId TEXT PRIMARY KEY, studentId TEXT, feePaidDate TEXT, transactionAmount INTEGER)');
-//       },
-//     );
-//   }
-
-//   // Insert a record into StudentTable
-//   Future<int> insertRecordInStudentTable(Map<String, dynamic> data) async {
-//     Database db = await database;
-//     return await db.insert('StudentTable', data);
-//   }
-
-//   // Insert a record into FeeLOGTable
-//   Future<int> insertRecordInFeeLOGTable(Map<String, dynamic> data) async {
-//     Database db = await database;
-//     return await db.insert('FeeLOGTable', data);
-//   }
-
-//   // Retrieve all records from StudentTable
-//   Future<List<Map<String, dynamic>>> getAllRecordsFromStudentTable() async {
-//     Database db = await database;
-//     return await db.query('StudentTable');
-//   }
-
-//   // Retrieve all records from FeeLOGTable
-//   Future<List<Map<String, dynamic>>> getAllRecordsFromFeeLOGTable() async {
-//     Database db = await database;
-//     return await db.query('FeeLOGTable');
-//   }
-
-//   // Update a record in StudentTable
-//   Future<int> updateRecordInStudentTable(Map<String, dynamic> data) async {
-//     Database db = await database;
-//     int id = data['
-//     return await db.update('StudentTable', data, where: 'id = ?', whereArgs: [id]);
-//   }
-
-//   // Update a record in FeeLOGTable
-//   Future<int> updateRecordInFeeLOGTable(Map<String, dynamic> data) async {
-//     Database db = await database;
-//     int id = data['id'];
-//     return await db.update('FeeLOGTable', data, where: 'id = ?', whereArgs: [id]);
-//   }
-
-//   // Delete a record from StudentTable
-//   Future<int> deleteRecordFromStudentTable(int id) async {
-//     Database db = await database;
-//     return await db.delete('StudentTable', where: 'id = ?', whereArgs: [id]);
-//   }
-
-//   // Delete a record from FeeLOGTable
-//   Future<int> deleteRecordFromFeeLOGTable(int id) async {
-//     Database db = await database;
-//     return await db.delete('FeeLOGTable', where: 'id = ?', whereArgs: [id]);
-//   }
-// }

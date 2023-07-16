@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:feemanagement/models/student_model.dart';
+import 'package:feemanagement/models/student_feelog_model.dart';
 import 'package:feemanagement/providers/student_provider.dart';
 import 'package:feemanagement/providers/fee_logs_provider.dart';
 // import 'package:flutter/foundation.dart';
