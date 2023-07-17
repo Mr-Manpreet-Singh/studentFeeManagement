@@ -5,7 +5,19 @@ The project is implemented using the Riverpod state management library and the S
 
 ## Project Visuals
 
-// ToDo
+###  ----- >>    [Project Demonstration Video]([https://www.example.com](https://youtu.be/K0JE6y_gVjg))  https://youtu.be/K0JE6y_gVjg << -----
+
+### Screenshots
+
+| Home Screen                                | Add Batch                                    | New Student Screen                            |
+| ----------------------------------------- | -------------------------------------------- | --------------------------------------------- |
+| ![Home Screen](https://github.com/Mr-Manpreet-Singh/studentFeeManagement/blob/main/github_readme_screenshots/home_screen.png) | ![Add Batch](https://github.com/Mr-Manpreet-Singh/studentFeeManagement/blob/main/github_readme_screenshots/add_batch.png) | ![New Student Screen](https://github.com/Mr-Manpreet-Singh/studentFeeManagement/blob/main/github_readme_screenshots/new_student_screen.png) |
+
+| Student List                                | Student Details Screen                                    | Add Log Popup                            |
+| ----------------------------------------- | -------------------------------------------- | --------------------------------------------- |
+| ![Student List](https://github.com/Mr-Manpreet-Singh/studentFeeManagement/blob/main/github_readme_screenshots/student_list.png) | ![Student Details Screen](https://github.com/Mr-Manpreet-Singh/studentFeeManagement/blob/main/github_readme_screenshots/student_details_screen.png) | ![Add Log Popup](https://github.com/Mr-Manpreet-Singh/studentFeeManagement/blob/main/github_readme_screenshots/add_log_popup.png) |
+
+
 
 ## Features
 - Add Class: You can add classes to the system by providing the necessary details such as class name, section, and teacher.
