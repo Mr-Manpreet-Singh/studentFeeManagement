@@ -17,10 +17,7 @@ class StudentsNotifier extends StateNotifier<List<Student>> {
     return saveStudent.id;
   }
 
-  // void removeStudent(Student removeStudent) {
-  //   state = state.where((element) => element != removeStudent).toList();
-  //   debugPrint("Student Removed form provider ${removeStudent.name}");
-  // }
+  
   void removeStudentUsingId(String studentId) {
     state = state.where((element) => element.id != studentId).toList();
     deleteStudentfromDbUsingStudentId(studentId);

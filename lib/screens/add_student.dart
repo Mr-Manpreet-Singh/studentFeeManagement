@@ -27,18 +27,19 @@ class _AddStudentState extends ConsumerState<AddStudent> {
       _formKey.currentState!.save();
 
       if (alreadyPaidFee <= totalFee) {
-        final String studentId = ref.read(studentsProvider.notifier).addStudent(Student(
-            name: studentName,
-            totalFee: totalFee,
-            alreadyFeePaid: alreadyPaidFee,
-            studentClass: studentClass));
+        final String studentId = ref.read(studentsProvider.notifier).addStudent(
+            Student(
+                name: studentName,
+                totalFee: totalFee,
+                alreadyFeePaid: alreadyPaidFee,
+                studentClass: studentClass));
 
-        if (alreadyPaidFee>0) {
-  ref.read(feeLogsProvider.notifier).addToLogs(FeeLog(
-      feePaidDate: DateTime.now(),
-      transactionAmount: alreadyPaidFee,
-      studentId: studentId));
-}
+        if (alreadyPaidFee > 0) {
+          ref.read(feeLogsProvider.notifier).addToLogs(FeeLog(
+              feePaidDate: DateTime.now(),
+              transactionAmount: alreadyPaidFee,
+              studentId: studentId));
+        }
 
         Navigator.of(context).pop();
       } else {
@@ -85,9 +86,8 @@ class _AddStudentState extends ConsumerState<AddStudent> {
                       onSaved: (newValue) => studentName = newValue!,
                     ),
                     DropdownButtonFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.people)
-                      ),
+                      decoration:
+                          const InputDecoration(prefixIcon: Icon(Icons.people)),
                       value: widget.currentClass,
                       onChanged: (_) {},
                       items: buildDropdownItems(ref),
@@ -125,7 +125,8 @@ class _AddStudentState extends ConsumerState<AddStudent> {
                         if (inputFee == null) return "Enter the valid input";
                         return null;
                       },
-                      onSaved: (newValue) => alreadyPaidFee = int.parse(newValue!),
+                      onSaved: (newValue) =>
+                          alreadyPaidFee = int.parse(newValue!),
                     ),
                     const SizedBox(height: 25),
                     Row(
@@ -134,17 +135,18 @@ class _AddStudentState extends ConsumerState<AddStudent> {
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: TextButton(
-                              
                                 onPressed: () {
                                   _formKey.currentState!.reset();
                                 },
                                 child: const Text(
-                                  "  Reset  ",style: TextStyle(color: Colors.red),
+                                  "  Reset  ",
+                                  style: TextStyle(color: Colors.red),
                                 ))),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: ElevatedButton(
-                                onPressed: _onSubmit, child: const Text("+ Add"))),
+                                onPressed: _onSubmit,
+                                child: const Text("+ Add"))),
                       ],
                     )
                   ],

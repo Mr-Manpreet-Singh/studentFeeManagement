@@ -19,7 +19,7 @@ class StudentList extends ConsumerStatefulWidget {
 class _StudentListState extends ConsumerState<StudentList> {
   @override
   void initState() {
-    // TODO: implement initState
+
     triggerDb();
 
     super.initState();

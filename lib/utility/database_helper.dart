@@ -86,7 +86,7 @@ class DatabaseHelper {
   static void updatePaidFeeStatus(
       String studentId, Map<String, dynamic> data) async {
     final db = await _getDataBase();
-    final int count = await db
+    await db
         .update("studentTable", data, where: "id = ?", whereArgs: [studentId]);
   }
 
@@ -136,11 +136,11 @@ class DatabaseHelper {
     // final logsCount =
     //     await db.delete('feeLOGTable', where: "studentId =?", whereArgs: listOfStudentsId);
     final whereClause =
-        'studentId = ? OR ' * (listOfStudentsId.length - 1) + 'studentId = ?';
+        '${'studentId = ? OR ' * (listOfStudentsId.length - 1)}studentId = ?';
     final logsCount = await db.delete('feeLOGTable',
         where: whereClause, whereArgs: listOfStudentsId);
 
-    debugPrint("${studentCount} : deleted Student Count ");
-    debugPrint("${logsCount} : deleted LOgs Count ");
+    debugPrint("$studentCount : deleted Student Count ");
+    debugPrint("$logsCount : deleted LOgs Count ");
   }
 }

@@ -6,27 +6,17 @@ import 'package:intl/intl.dart';
 
 //ToDO
 //edit details button --> add student screen without allready paid fee
-// image foregrounfd and background
-// edit buttom functionality
-// Undo button student button funcationality
-
-// Learnings delete using ID nothe the complete Model but why ??
 
 class StudentDetails extends ConsumerWidget {
   const StudentDetails({super.key, required this.currentStudent});
   final Student currentStudent;
-  // const StudentDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     debugPrint("${currentStudent.id}   st ID on details screen ");
     final formattedDateTime =
         DateFormat('dd-MMM-yy HH:mm').format(currentStudent.registeredDate);
-    const feeDetailsTextStyle = TextStyle(
-                          
-                          fontSize: 18,
-                          color: Colors.black87
-                        );
+    const feeDetailsTextStyle = TextStyle(fontSize: 18, color: Colors.black87);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -49,8 +39,7 @@ class StudentDetails extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               Card(
-                color: Colors.black87,
-
+                color: Colors.grey[200],
                 elevation: 3,
                 child: Container(
                   padding: const EdgeInsets.all(20),
@@ -59,11 +48,10 @@ class StudentDetails extends ConsumerWidget {
                     children: [
                       Text(
                         currentStudent.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Colors.white
-                        ),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Colors.black87),
                       ),
                       const SizedBox(height: 12),
                       Card(
@@ -75,21 +63,31 @@ class StudentDetails extends ConsumerWidget {
                             children: [
                               Column(
                                 children: [
-                                  const Text("Total",style: feeDetailsTextStyle,),
-                                  Text("${currentStudent.totalFee}",style: feeDetailsTextStyle),
+                                  const Text(
+                                    "Total",
+                                    style: feeDetailsTextStyle,
+                                  ),
+                                  Text("${currentStudent.totalFee}",
+                                      style: feeDetailsTextStyle),
                                 ],
                               ),
                               Column(
                                 children: [
-                                  const Text("Paid",style: feeDetailsTextStyle),
-                                  Text("${currentStudent.alreadyFeePaid}",style: feeDetailsTextStyle),
+                                  const Text("Paid",
+                                      style: feeDetailsTextStyle),
+                                  Text("${currentStudent.alreadyFeePaid}",
+                                      style: feeDetailsTextStyle.copyWith(
+                                          color: Colors.green[800])),
                                 ],
                               ),
                               Column(
                                 children: [
-                                  const Text("Pending",style: feeDetailsTextStyle),
+                                  const Text("Pending",
+                                      style: feeDetailsTextStyle),
                                   Text(
-                                      "${(currentStudent.totalFee) - (currentStudent.alreadyFeePaid)}",style: feeDetailsTextStyle),
+                                      "${(currentStudent.totalFee) - (currentStudent.alreadyFeePaid)}",
+                                      style: feeDetailsTextStyle.copyWith(
+                                          color: Colors.red)),
                                 ],
                               ),
                             ],
@@ -97,12 +95,13 @@ class StudentDetails extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Text("Registered on $formattedDateTime"
-                      ,style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: Colors.white70
-                        ),),
+                      Text(
+                        "Registered on $formattedDateTime",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.black54),
+                      ),
                     ],
                   ),
                 ),
@@ -114,8 +113,6 @@ class StudentDetails extends ConsumerWidget {
               const SizedBox(
                 height: 20,
               ),
-
-              // FeeLogsWidget(studentId: student.id)
               Expanded(child: FeeLogsWidget(studentId: currentStudent.id)),
 
               // Text("Registered "),
@@ -132,3 +129,4 @@ class StudentDetails extends ConsumerWidget {
 // Balance
 // Undo last fee
 // delete student
+

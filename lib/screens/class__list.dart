@@ -15,8 +15,7 @@ class _ClassScreenState extends ConsumerState<ClassScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // _classesFuture =
+
     triggerDb();
     super.initState();
   }

@@ -19,7 +19,7 @@ class _FeeLogsWidgetState extends ConsumerState<FeeLogsWidget> {
   @override
   void initState()  {
     triggerDb();
-    // TODO: implement initState
+    
     super.initState();
   }
 
