@@ -20,25 +20,25 @@ The project is implemented using the Riverpod state management library and the S
 
 
 ## Features
-- Add Class: You can add classes to the system by providing the necessary details such as class name, section, and teacher.
-- Add Student: You can add students to a class by providing their details including name, roll number, and contact information.
-- Add Fee Log: You can log fee payments for students, specifying the student, class, payment date, and amount.
-- Delete Class: You have the option to delete a class along with all its associated students and fee logs.
-- Delete Student: You can delete individual students from a class, removing their associated fee logs.
-- Undo Last Log: In case of an accidental fee log entry, you can undo the last payment log and revert the changes.
-- Fee Pending Status: The list view builder displays the fee pending status as a subtitle for each student. It helps you quickly identify students with pending fees.
-- Log History: The details page of a student displays a history of fee logs, allowing you to track their payment records.
-- Search Student: You can search for students by their name, roll number, or any other relevant details. The search functionality helps you find students quickly.
+- ***Add Class:*** You can add classes to the system by providing the necessary details such as class name, section, and teacher.
+- ***Add Student:*** You can add students to a class by providing their details including name, roll number, and contact information.
+- ***Add Fee Log:*** You can log fee payments for students, specifying the student, class, payment date, and amount.
+- ***Delete Class:*** You have the option to delete a class along with all its associated students and fee logs.
+- ***Delete Student:*** You can delete individual students from a class, removing their associated fee logs.
+- ***Undo Last Log:*** In case of an accidental fee log entry, you can undo the last payment log and revert the changes.
+- ***Fee Pending Status:*** The list view builder displays the fee pending status as a subtitle for each student. It helps you quickly identify students with pending fees.
+- ***Log History:*** The details page of a student displays a history of fee logs, allowing you to track their payment records.
+- ***Search Student:*** You can search for students by their name, roll number, or any other relevant details. The search functionality helps you find students quickly.
 
 
 ## Dependencies
 The project utilizes the following dependencies:
 
-- flutter_riverpod: A state management library that provides simple and efficient dependency injection and state management capabilities.
-- sqflite: A Flutter plugin for SQLite database, used for storing and retrieving data.
-- uuid: A library for generating unique identifiers (UUIDs).
-- intl: A Flutter package providing internationalization and localization support.
-- path: A package for working with file and directory paths.
+- `flutter_riverpod`: A state management library that provides simple and efficient dependency injection and state management capabilities.
+- `sqflite`: A Flutter plugin for SQLite database, used for storing and retrieving data.
+- `uuid`: A library for generating unique identifiers (UUIDs).
+- `intl`: A Flutter package providing internationalization and localization support.
+- `path`: A package for working with file and directory paths.
 other necessary Flutter dependencies
 
 
