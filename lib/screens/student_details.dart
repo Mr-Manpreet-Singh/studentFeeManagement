@@ -22,6 +22,11 @@ class StudentDetails extends ConsumerWidget {
     debugPrint("${currentStudent.id}   st ID on details screen ");
     final formattedDateTime =
         DateFormat('dd-MMM-yy HH:mm').format(currentStudent.registeredDate);
+    const feeDetailsTextStyle = TextStyle(
+                          
+                          fontSize: 18,
+                          color: Colors.black87
+                        );
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -36,22 +41,30 @@ class StudentDetails extends ConsumerWidget {
                   radius: 40,
                   backgroundColor: Colors.grey[300],
                   child: const Icon(
+                    color: Colors.black87,
                     Icons.person,
                     size: 60,
                   ),
-                  // backgroundImage: ,
-                  // foregroundImage: ,
                 ),
               ),
               const SizedBox(height: 12),
               Card(
+                color: Colors.black87,
+
                 elevation: 3,
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(currentStudent.name),
+                      Text(
+                        currentStudent.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: Colors.white
+                        ),
+                      ),
                       const SizedBox(height: 12),
                       Card(
                         elevation: 10,
@@ -62,21 +75,21 @@ class StudentDetails extends ConsumerWidget {
                             children: [
                               Column(
                                 children: [
-                                  const Text("Total"),
-                                  Text("${currentStudent.totalFee}"),
+                                  const Text("Total",style: feeDetailsTextStyle,),
+                                  Text("${currentStudent.totalFee}",style: feeDetailsTextStyle),
                                 ],
                               ),
                               Column(
                                 children: [
-                                  const Text("Paid"),
-                                  Text("${currentStudent.alreadyFeePaid}"),
+                                  const Text("Paid",style: feeDetailsTextStyle),
+                                  Text("${currentStudent.alreadyFeePaid}",style: feeDetailsTextStyle),
                                 ],
                               ),
                               Column(
                                 children: [
-                                  const Text("Pending"),
+                                  const Text("Pending",style: feeDetailsTextStyle),
                                   Text(
-                                      "${(currentStudent.totalFee) - (currentStudent.alreadyFeePaid)}"),
+                                      "${(currentStudent.totalFee) - (currentStudent.alreadyFeePaid)}",style: feeDetailsTextStyle),
                                 ],
                               ),
                             ],
@@ -84,7 +97,12 @@ class StudentDetails extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Text("Registered on $formattedDateTime"),
+                      Text("Registered on $formattedDateTime"
+                      ,style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.white70
+                        ),),
                     ],
                   ),
                 ),

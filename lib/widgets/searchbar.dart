@@ -1,13 +1,22 @@
 // import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// class MySearchBar extends StatelessWidget {
-//   const MySearchBar({super.key});
+// class SearchStudentScreen extends ConsumerStatefulWidget {
+//   const SearchStudentScreen({super.key});
 
 //   @override
+//   ConsumerState<SearchStudentScreen> createState() => _SearchStudentScreenState();
+// }
+
+// class _SearchStudentScreenState extends ConsumerState<SearchStudentScreen> {
+//   @override
+
+
 //   Widget build(BuildContext context) {
-//     return const Padding(
-//       padding:  EdgeInsets.all(8.0),
-//       child:  TextField(decoration: InputDecoration(prefixIcon: Icon(Icons.person_search),hintText: "Search Student..")),)
-//     ;
+//     return 
+
+//     // saerch bar 
+//     // list view builed
+
 //   }
 // }

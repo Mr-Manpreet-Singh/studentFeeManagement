@@ -4,7 +4,6 @@ import 'package:sqflite/sqflite.dart' as sql;
 import 'package:feemanagement/models/student_feelog_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-
 class DatabaseHelper {
   Database? _database;
   Future<Database> get database async {
@@ -113,7 +112,10 @@ class DatabaseHelper {
     final List<String> allClasses =
         data.map((row) => row['studentClass'] as String).toList();
 
-    return allClasses;
+    //  removing duplicates
+    final allUniqueClasses = allClasses.toSet().toList();
+
+    return allUniqueClasses;
   }
 
 // ------------------ operations on both
@@ -130,15 +132,15 @@ class DatabaseHelper {
       where: "studentClass = ?",
       whereArgs: [studentClass],
     );
-    
+
     // final logsCount =
     //     await db.delete('feeLOGTable', where: "studentId =?", whereArgs: listOfStudentsId);
-  final whereClause = 'studentId = ? OR ' * (listOfStudentsId.length - 1) + 'studentId = ?';
-final logsCount = await db.delete('feeLOGTable', where: whereClause, whereArgs: listOfStudentsId);
-
+    final whereClause =
+        'studentId = ? OR ' * (listOfStudentsId.length - 1) + 'studentId = ?';
+    final logsCount = await db.delete('feeLOGTable',
+        where: whereClause, whereArgs: listOfStudentsId);
 
     debugPrint("${studentCount} : deleted Student Count ");
     debugPrint("${logsCount} : deleted LOgs Count ");
   }
 }
-

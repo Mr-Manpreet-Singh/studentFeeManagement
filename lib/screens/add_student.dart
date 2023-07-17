@@ -85,6 +85,9 @@ class _AddStudentState extends ConsumerState<AddStudent> {
                       onSaved: (newValue) => studentName = newValue!,
                     ),
                     DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.people)
+                      ),
                       value: widget.currentClass,
                       onChanged: (_) {},
                       items: buildDropdownItems(ref),
@@ -131,11 +134,12 @@ class _AddStudentState extends ConsumerState<AddStudent> {
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: TextButton(
+                              
                                 onPressed: () {
                                   _formKey.currentState!.reset();
                                 },
                                 child: const Text(
-                                  "  Reset  ",
+                                  "  Reset  ",style: TextStyle(color: Colors.red),
                                 ))),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
